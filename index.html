@@ -7,13 +7,13 @@
         <title>Epic Bookstore</title>
     </head>
     <body>
-        <form>
+        <form id="add-book-form">
             <h3>Add book</h3>
             <label for="book-name">Book name</label><br>
             <input type="text" id="book-name" name="book-name" required><br>
             <label for="book-author-name">Author</label><br>
             <input type="text" id="book-author-name" name="book-author-name" required><br>
-            <button type="submit" id="btn" class="btn">Add book</button><br>
+            <button type="button" id="add-book-button">Add book</button><br>
         </form>
         <form>
             <h3>Modify book</h3>
@@ -23,7 +23,7 @@
             <input type="text" id="modify-book-name" name="modify-book-name" required><br>
             <label for="modify-book-author-name">Author</label><br>
             <input type="text" id="modify-book-author-name" name="modify-book-author-name" required><br>
-            <button type="submit">Modify book</button><br>
+            <button type="button">Modify book</button><br>
         </form>
         <form>
             <h3>Delete book</h3>
@@ -33,7 +33,7 @@
             <input type="text" id="delete-book-name" name="delete-book-name" required><br>
             <label for="delete-book-author-name">Author</label><br>
             <input type="text" id="delete-book-author-name" name="delete-book-author-name" required><br>
-            <button type="submit">Delete book</button><br>
+            <button type="button">Delete book</button><br>
         </form>
         <button type="button">Request API key</button>
         <div>
