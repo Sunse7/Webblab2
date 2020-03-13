@@ -4,19 +4,19 @@ let bookNameField;
 let bookAuthorField;
 let addBookButton;
 let bookList; 
-const tryTimes = 9;
+const realTryTimes = 9;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
 	bookAuthorField = document.getElementById('book-author-name');
 	addBookButton = document.getElementById('add-book-button');
 	bookList = document.getElementById('current-book-list');
-	addBookButton.addEventListener('click', addBook);
+	addBookButton.addEventListener('click', addBook(realTryTimes));
 })
 
-function addBook(tryTimes) {
+function addBook(tryTimes = realTryTimes) {
 	if (tryTimes <= 0) {
-		console.log('')
+		console.log(`Number of tries: ${tryTimes}`);
 		return;
 	}
 	const insertBook = '&op=insert';
@@ -24,14 +24,13 @@ function addBook(tryTimes) {
 	const bookAuthor = '&author=' + bookAuthorField.value;
 	const endpoint = baseUrl + insertBook + bookTitle + bookAuthor;
 	fetch(endpoint).then(response => response.json).then(json => {
-		console.log(json.status)
 		if (json.status === 'success') {
-			console.log('Successfully added book')
+			console.log('Successfully added book');
 			bookNameField.value = '';
 			bookAuthorField.value = '';
 		}
 		else {
-			return addBook(tryTimes--);
+			return addBook(tryTimes -1);
 		}	
 	});
 }
