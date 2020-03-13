@@ -2,30 +2,30 @@ let key = 'b6hep';
 const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?key=' + key;
 let bookNameField;
 let bookAuthorField;
-let addBookButton;
 let bookList; 
-const realTryTimes = 9;
+const tryTimes = 10;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
 	bookAuthorField = document.getElementById('book-author-name');
-	addBookButton = document.getElementById('add-book-button');
 	bookList = document.getElementById('current-book-list');
-	addBookButton.addEventListener('click', addBook(realTryTimes));
-})
+});
 
-function addBook(tryTimes = realTryTimes) {
+//const addBookButton = document.getElementById('add-book-button');
+//addBookButton.addEventListener('click', addBook(tryTimes)); //Gets undefined
+
+function addBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
-		console.log(`Number of tries: ${tryTimes}`);
+		console.log(`Number of tries: ${tryTimes}`); //Number of tires off by 1
 		return;
 	}
 	const insertBook = '&op=insert';
 	const bookTitle = '&title=' + bookNameField.value;
 	const bookAuthor = '&author=' + bookAuthorField.value;
 	const endpoint = baseUrl + insertBook + bookTitle + bookAuthor;
-	fetch(endpoint).then(response => response.json).then(json => {
+	fetch(endpoint).then(response => response.json()).then(json => {
 		if (json.status === 'success') {
-			console.log('Successfully added book');
+			console.log(`Successfully added book in ${10-tryTimes+1} number of tries`);
 			bookNameField.value = '';
 			bookAuthorField.value = '';
 		}
