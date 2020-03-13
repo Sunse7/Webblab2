@@ -35,7 +35,10 @@ function addBook(tryTimes = 10) {
 	});
 }
 
-function viewBookList() {
+function viewBookList(tryTimes = 10) {
+	if (tryTimes <= 0) {
+		return;
+	}
 	const viewBook = '&op=select';
 	const endpoint = baseUrl + viewBook;
 	fetch(endpoint).then(response => response.json()).then(json => {
@@ -50,6 +53,9 @@ function viewBookList() {
 				makeList.innerHTML = `Title: ${bookArray[i].title} Author: ${bookArray[i].author}`;	
 				bookList.appendChild(makeList);
 			}
+		}
+		else {
+			return viewBookList(tryTimes -1);
 		}
 	});
 }
