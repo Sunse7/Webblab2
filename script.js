@@ -18,6 +18,7 @@ window.addEventListener('load', ()=> {
 	modifyBookIdField = document.getElementById('modify-book-id');
 	modifyBookNameField = document.getElementById('modify-book-name');
 	modifyBookAuthorField = document.getElementById('modify-book-author-name');
+	newAPIKeyList = document.getElementById('new-api-key');
 });
 
 function addBook(tryTimes = 10) {
@@ -60,12 +61,15 @@ function viewBookList(tryTimes = 10) {
 			}
 		}
 		else {
-			return viewBookList(tryTimes -1);
+			return viewBookList(tryTimes--);
 		}
 	});
 }
 
-function modifyBook() {
+function modifyBook(tryTimes = 10) {
+	if (tryTimes <= 0) {
+		return;
+	}
 	const modifyBookQuery = '&op=update';
 	const modifyBookIdParam = '&id=' + modifyBookIdField.value;
 	const newBookName = '&title=' + modifyBookNameField.value;
@@ -79,7 +83,7 @@ function modifyBook() {
 			modifyBookAuthorField.value = '';
 		}
 		else {
-			console.log('Did not work...')
+			return modifyBook(tryTimes--)
 		}
 	})
 }
@@ -110,6 +114,9 @@ function requestNewAPIKey() {
 	fetch(endpoint).then(response => response.json()).then(json => {
 		newKey = json.key;
 		console.log(newKey);
+		let makeAPIKeyList = document.createElement('li');
+		makeAPIKeyList.innerHTML = newKey;
+		newAPIKeyList.appendChild(makeAPIKeyList);
 	})
 }
 	
