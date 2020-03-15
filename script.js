@@ -1,5 +1,5 @@
-let key = 'b6hep';
-const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?key=' + key;
+let key = 'key=b6hep';
+const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?' + key;
 let bookNameField;
 let bookAuthorField;
 let bookList; 
@@ -11,12 +11,8 @@ window.addEventListener('load', ()=> {
 	bookList = document.getElementById('current-book-list');
 });
 
-//const addBookButton = document.getElementById('add-book-button');
-//addBookButton.addEventListener('click', addBook(tryTimes)); //Gets undefined
-
 function addBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
-		console.log(`Number of tries: ${tryTimes}`); //Number of tires off by 1
 		return;
 	}
 	const insertBook = '&op=insert';
@@ -58,6 +54,16 @@ function viewBookList(tryTimes = 10) {
 			return viewBookList(tryTimes -1);
 		}
 	});
+}
+function requestNewAPIKey() {
+	let newKey;
+	const requestKey = 'requestKey';
+	const url = 'https://www.forverkliga.se/JavaScript/api/crud.php?';
+	const endpoint = url + requestKey;
+	fetch(endpoint).then(response => response.json()).then(json => {
+		json.data.key = newKey; //undefined
+		console.log(newKey);
+	})
 }
 	
 
