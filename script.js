@@ -61,7 +61,7 @@ function requestNewAPIKey() {
 	const url = 'https://www.forverkliga.se/JavaScript/api/crud.php?';
 	const endpoint = url + requestKey;
 	fetch(endpoint).then(response => response.json()).then(json => {
-		json.data.key = newKey; //undefined
+		newKey = json.key;
 		console.log(newKey);
 	})
 }
