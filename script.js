@@ -4,21 +4,30 @@ let bookNameField;
 let bookAuthorField;
 let bookList; 
 const tryTimes = 10;
+let bookArray;
+let bookIdField;
+let modifyBookIdField;
+let modifyBookNameField;
+let modifyBookAuthorField;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
 	bookAuthorField = document.getElementById('book-author-name');
 	bookList = document.getElementById('current-book-list');
+	bookIdField = document.getElementById('delete-book-id');
+	modifyBookIdField = document.getElementById('modify-book-id');
+	modifyBookNameField = document.getElementById('modify-book-name');
+	modifyBookAuthorField = document.getElementById('modify-book-author-name');
 });
 
 function addBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
 		return;
 	}
-	const insertBook = '&op=insert';
-	const bookTitle = '&title=' + bookNameField.value;
-	const bookAuthor = '&author=' + bookAuthorField.value;
-	const endpoint = baseUrl + insertBook + bookTitle + bookAuthor;
+	const insertBookQuery = '&op=insert';
+	const bookTitleParam = '&title=' + bookNameField.value;
+	const bookAuthorParam = '&author=' + bookAuthorField.value;
+	const endpoint = baseUrl + insertBookQuery + bookTitleParam + bookAuthorParam;
 	fetch(endpoint).then(response => response.json()).then(json => {
 		if (json.status === 'success') {
 			console.log(`Successfully added book in ${10-tryTimes+1} number of tries`);
@@ -35,18 +44,18 @@ function viewBookList(tryTimes = 10) {
 	if (tryTimes <= 0) {
 		return;
 	}
-	const viewBook = '&op=select';
-	const endpoint = baseUrl + viewBook;
+	const viewBookQuery = '&op=select';
+	const endpoint = baseUrl + viewBookQuery;
 	fetch(endpoint).then(response => response.json()).then(json => {
 		if (json.status === 'success') {
-			let bookArray = [];
+			bookArray = [];
 			json.data.forEach(element => {
-				bookArray.push({title: element.title, author: element.author});
+				bookArray.push({id: element.id, title: element.title, author: element.author});
 			});
 			bookList.innerHTML = '';
 			for (let i = 0; i < bookArray.length; i++) {
 				let makeList = document.createElement('li');
-				makeList.innerHTML = `Title: ${bookArray[i].title} Author: ${bookArray[i].author}`;	
+				makeList.innerHTML = `ID: ${bookArray[i].id} Title: ${bookArray[i].title} Author: ${bookArray[i].author}`;	
 				bookList.appendChild(makeList);
 			}
 		}
@@ -55,11 +64,49 @@ function viewBookList(tryTimes = 10) {
 		}
 	});
 }
+
+function modifyBook() {
+	const modifyBookQuery = '&op=update';
+	const modifyBookIdParam = '&id=' + modifyBookIdField.value;
+	const newBookName = '&title=' + modifyBookNameField.value;
+	const newBookAuthor = '&author=' + modifyBookAuthorField.value;
+	const endpoint = baseUrl + modifyBookQuery + modifyBookIdParam + newBookName + newBookAuthor;
+	fetch(endpoint).then(response => response.json()).then(json => {
+		if (json.status === 'success') {
+			console.log('Successfully updated book');
+			modifyBookIdField.value = '';
+			modifyBookNameField.value = '';
+			modifyBookAuthorField.value = '';
+		}
+		else {
+			console.log('Did not work...')
+		}
+	})
+}
+
+function deleteBook(tryTimes = 10) {
+	if (tryTimes <= 0) {
+		return;
+	}
+	const deleteBookQuery = '&op=delete';
+	const bookIdParam = '&id=' + bookIdField.value;
+	const endpoint = baseUrl + deleteBookQuery + bookIdParam;
+	fetch(endpoint).then(response => response.json()).then(json => {
+		if (json.status === 'success') {
+			console.log('Successfully deleted book');
+			bookIdField.value = '';
+		}
+		else {
+			return deleteBook(tryTimes--)
+		}
+	})
+}
+
 function requestNewAPIKey() {
 	let newKey;
-	const requestKey = 'requestKey';
+	const requestKeyQuery = 'requestKey';
 	const url = 'https://www.forverkliga.se/JavaScript/api/crud.php?';
-	const endpoint = url + requestKey;
+	const endpoint = url + requestKeyQuery;
 	fetch(endpoint).then(response => response.json()).then(json => {
 		newKey = json.key;
 		console.log(newKey);
