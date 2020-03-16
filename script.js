@@ -135,6 +135,26 @@ function requestNewAPIKey() {
 		newAPIKeyList.appendChild(makeAPIKeyList);
 	})
 }
+
+function openForm(bookForm) {
+	switch (bookForm) {
+		case 'addBookForm':
+			document.getElementById('add-book-form').style.display = 'block';
+			document.getElementById('modify-book-form').style.display = 'none';
+			document.getElementById('delete-book-form').style.display = 'none';
+			break;
+		case 'modifyBookForm':
+			document.getElementById('add-book-form').style.display = 'none';
+			document.getElementById('modify-book-form').style.display = 'block';
+			document.getElementById('delete-book-form').style.display = 'none';
+			break;
+		case 'deleteBookForm':
+			document.getElementById('add-book-form').style.display = 'none';
+			document.getElementById('modify-book-form').style.display = 'none';
+			document.getElementById('delete-book-form').style.display = 'block';
+			break;
+	}
+}
 	
 
 
