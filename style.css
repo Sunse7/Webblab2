@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+    font-family: "Cambria";
+    background-image: linear-gradient(to right, rgb(40, 3, 75), black, rgb(40, 3, 75));
+    color: cornsilk;
+}
+ul {
+    list-style-type: none;
+}
+button {
+    margin-top: 10px;
+}

@@ -7,6 +7,7 @@
         <title>Epic Bookstore</title>
     </head>
     <body>
+        <h1>Welcome to Epic Bookstore!</h1>
         <form id="add-book-form">
             <h3>Add book</h3>
             <label for="book-name">Book name</label><br>
@@ -15,32 +16,32 @@
             <input type="text" id="book-author-name" name="book-author-name" required><br>
             <button type="button" onclick="addBook()" id="add-book-button">Add book</button><br>
         </form>
+        <p id="add-book-try-times"></p>
         <form>
             <h3>Modify book</h3>
             <label for="modify-book-id">Book ID</label><br>
             <input type="text" id="modify-book-id" name="modify-book-name" required><br>
-            <label for="modify-book-name">Book name</label><br>
+            <label for="modify-book-name">New book name</label><br>
             <input type="text" id="modify-book-name" name="modify-book-name" required><br>
-            <label for="modify-book-author-name">Author</label><br>
+            <label for="modify-book-author-name">New author</label><br>
             <input type="text" id="modify-book-author-name" name="modify-book-author-name" required><br>
             <button type="button" onclick="modifyBook()">Modify book</button><br>
         </form>
+        <p id="modify-book-try-times"></p>
         <form>
             <h3>Delete book</h3>
             <label for="delete-book-id">Book ID</label><br>
             <input type="text" id="delete-book-id" name="delete-book-name" required><br>
-            <!--<label for="delete-book-name">Book name</label><br>
-            <input type="text" id="delete-book-name" name="delete-book-name" required><br>
-            <label for="delete-book-author-name">Author</label><br>
-            <input type="text" id="delete-book-author-name" name="delete-book-author-name" required><br>-->
             <button type="button" onclick="deleteBook()">Delete book</button><br>
         </form>
+        <p id="delete-book-try-times"></p>
         <button type="button" onclick="requestNewAPIKey()">Request new API key</button>
         <ul id="new-api-key">
         </ul>
         <div>
             <h3>Current books in your list</h3>
             <button onclick="viewBookList()">Get the books!</button>
+            <p id="view-book-try-times"></p>
             <ul id="current-book-list">                
             </ul>
         </div>

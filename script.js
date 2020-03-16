@@ -9,6 +9,10 @@ let bookIdField;
 let modifyBookIdField;
 let modifyBookNameField;
 let modifyBookAuthorField;
+let addBookMessage;
+let modifyBookMessage;
+let deleteBookMessage;
+let viewBookMessage;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
@@ -19,10 +23,15 @@ window.addEventListener('load', ()=> {
 	modifyBookNameField = document.getElementById('modify-book-name');
 	modifyBookAuthorField = document.getElementById('modify-book-author-name');
 	newAPIKeyList = document.getElementById('new-api-key');
+	addBookMessage = document.getElementById('add-book-try-times');
+	modifyBookMessage = document.getElementById('modify-book-try-times');
+	deleteBookMessage = document.getElementById('delete-book-try-times');
+	viewBookMessage = document.getElementById('view-book-try-times');
 });
 
 function addBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
+		addBookMessage.innerHTML = 'Failed to add book';
 		return;
 	}
 	const insertBookQuery = '&op=insert';
@@ -34,8 +43,9 @@ function addBook(tryTimes = 10) {
 			console.log(`Successfully added book in ${10-tryTimes+1} number of tries`);
 			bookNameField.value = '';
 			bookAuthorField.value = '';
+			addBookMessage.innerHTML = `Successfully added book after ${10 - tryTimes + 1} tries`;
 		}
-		else {
+		else {			
 			return addBook(tryTimes -1);
 		}	
 	});
@@ -43,6 +53,7 @@ function addBook(tryTimes = 10) {
 
 function viewBookList(tryTimes = 10) {
 	if (tryTimes <= 0) {
+		viewBookMessage.innerHTML = 'Failed to fetch books';
 		return;
 	}
 	const viewBookQuery = '&op=select';
@@ -59,15 +70,17 @@ function viewBookList(tryTimes = 10) {
 				makeList.innerHTML = `ID: ${bookArray[i].id} Title: ${bookArray[i].title} Author: ${bookArray[i].author}`;	
 				bookList.appendChild(makeList);
 			}
+			viewBookMessage.innerHTML = `Successfully fetched and updated books after ${10 - tryTimes + 1} tries`;
 		}
-		else {
-			return viewBookList(tryTimes--);
+		else {			
+			return viewBookList(tryTimes - 1);
 		}
 	});
 }
 
 function modifyBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
+		modifyBookMessage.innerHTML = 'Failed to modify book';
 		return;
 	}
 	const modifyBookQuery = '&op=update';
@@ -81,15 +94,17 @@ function modifyBook(tryTimes = 10) {
 			modifyBookIdField.value = '';
 			modifyBookNameField.value = '';
 			modifyBookAuthorField.value = '';
+			modifyBookMessage.innerHTML = `Successfully modified book after ${10 - tryTimes + 1} tries`;
 		}
-		else {
-			return modifyBook(tryTimes--)
+		else {			
+			return modifyBook(tryTimes - 1);
 		}
 	})
 }
 
 function deleteBook(tryTimes = 10) {
 	if (tryTimes <= 0) {
+		deleteBookMessage.innerHTML = 'Failed to delete book';
 		return;
 	}
 	const deleteBookQuery = '&op=delete';
@@ -99,9 +114,10 @@ function deleteBook(tryTimes = 10) {
 		if (json.status === 'success') {
 			console.log('Successfully deleted book');
 			bookIdField.value = '';
+			deleteBookMessage.innerHTML = `Successfully deleted book after ${10 - tryTimes + 1} tries`;
 		}
-		else {
-			return deleteBook(tryTimes--)
+		else {			
+			return deleteBook(tryTimes - 1);
 		}
 	})
 }
