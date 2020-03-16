@@ -99,7 +99,7 @@ function modifyBook(tryTimes = 10) {
 		else {			
 			return modifyBook(tryTimes - 1);
 		}
-	})
+	});
 }
 
 function deleteBook(tryTimes = 10) {
@@ -119,7 +119,7 @@ function deleteBook(tryTimes = 10) {
 		else {			
 			return deleteBook(tryTimes - 1);
 		}
-	})
+	});
 }
 
 function requestNewAPIKey() {
@@ -133,7 +133,7 @@ function requestNewAPIKey() {
 		let makeAPIKeyList = document.createElement('li');
 		makeAPIKeyList.innerHTML = newKey;
 		newAPIKeyList.appendChild(makeAPIKeyList);
-	})
+	});
 }
 
 function openForm(bookForm) {

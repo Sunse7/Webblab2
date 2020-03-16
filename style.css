@@ -9,6 +9,7 @@ ul {
 }
 button {
     margin-top: 10px;
+    cursor: pointer;
 }
 label {
     display: inline-block;
