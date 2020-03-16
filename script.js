@@ -1,4 +1,4 @@
-let key = 'key=b6hep';
+let key = 'key=zbYuQ';
 const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?' + key;
 let bookNameField;
 let bookAuthorField;
@@ -13,6 +13,7 @@ let addBookMessage;
 let modifyBookMessage;
 let deleteBookMessage;
 let viewBookMessage;
+let title;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
@@ -58,6 +59,10 @@ function viewBookList(tryTimes = 10) {
 	}
 	const viewBookQuery = '&op=select';
 	const endpoint = baseUrl + viewBookQuery;
+	//let result = title.fontcolor('green'); //To change the color on the title
+	let idColor = 'ID'.fontcolor('#9999ff');
+	let titleColor = 'Title'.fontcolor('#9999ff');
+	let authorColor = 'Author'.fontcolor('#9999ff');
 	fetch(endpoint).then(response => response.json()).then(json => {
 		if (json.status === 'success') {
 			bookArray = [];
@@ -66,8 +71,9 @@ function viewBookList(tryTimes = 10) {
 			});
 			bookList.innerHTML = '';
 			for (let i = 0; i < bookArray.length; i++) {
+				title = bookArray[i].title;
 				let makeList = document.createElement('li');
-				makeList.innerHTML = `ID: ${bookArray[i].id} Title: ${bookArray[i].title} Author: ${bookArray[i].author}`;	
+				makeList.innerHTML = `${idColor}: ${bookArray[i].id} ${titleColor}: ${title} ${authorColor}: ${bookArray[i].author}`;	
 				bookList.appendChild(makeList);
 			}
 			viewBookMessage.innerHTML = `Successfully fetched and updated books after ${10 - tryTimes + 1} tries`;
@@ -142,16 +148,25 @@ function openForm(bookForm) {
 			document.getElementById('add-book-form').style.display = 'block';
 			document.getElementById('modify-book-form').style.display = 'none';
 			document.getElementById('delete-book-form').style.display = 'none';
+			addBookMessage.innerHTML = '';
+			modifyBookMessage.innerHTML = '';
+			deleteBookMessage.innerHTML = '';
 			break;
 		case 'modifyBookForm':
 			document.getElementById('add-book-form').style.display = 'none';
 			document.getElementById('modify-book-form').style.display = 'block';
 			document.getElementById('delete-book-form').style.display = 'none';
+			addBookMessage.innerHTML = '';
+			modifyBookMessage.innerHTML = '';
+			deleteBookMessage.innerHTML = '';
 			break;
 		case 'deleteBookForm':
 			document.getElementById('add-book-form').style.display = 'none';
 			document.getElementById('modify-book-form').style.display = 'none';
 			document.getElementById('delete-book-form').style.display = 'block';
+			addBookMessage.innerHTML = '';
+			modifyBookMessage.innerHTML = '';
+			deleteBookMessage.innerHTML = '';
 			break;
 	}
 }
