@@ -38,7 +38,9 @@ function addBook(tryTimes = 10) {
 	const bookTitleParam = '&title=' + bookNameField.value;
 	const bookAuthorParam = '&author=' + bookAuthorField.value;
 	const endpoint = baseUrl + insertBookQuery + bookTitleParam + bookAuthorParam;
-	fetch(endpoint).then(response => response.json()).then(json => {
+	fetch(endpoint)
+	.then(response => response.json())
+	.then(json => {
 		if (json.status === 'success') {
 			console.log(`Successfully added book in ${10-tryTimes+1} number of tries`);
 			bookNameField.value = '';
@@ -61,7 +63,9 @@ function viewBookList(tryTimes = 10) {
 	let idColor = 'ID'.fontcolor('#9999ff');
 	let titleColor = 'Title'.fontcolor('#9999ff');
 	let authorColor = 'Author'.fontcolor('#9999ff');
-	fetch(endpoint).then(response => response.json()).then(json => {
+	fetch(endpoint)
+	.then(response => response.json())
+	.then(json => {
 		if (json.status === 'success') {
 			bookArray = [];
 			json.data.forEach(element => {
@@ -91,7 +95,9 @@ function modifyBook(tryTimes = 10) {
 	const newBookName = '&title=' + modifyBookNameField.value;
 	const newBookAuthor = '&author=' + modifyBookAuthorField.value;
 	const endpoint = baseUrl + modifyBookQuery + modifyBookIdParam + newBookName + newBookAuthor;
-	fetch(endpoint).then(response => response.json()).then(json => {
+	fetch(endpoint)
+	.then(response => response.json())
+	.then(json => {
 		if (json.status === 'success') {
 			console.log('Successfully updated book');
 			modifyBookIdField.value = '';
@@ -113,7 +119,9 @@ function deleteBook(tryTimes = 10) {
 	const deleteBookQuery = '&op=delete';
 	const bookIdParam = '&id=' + bookIdField.value;
 	const endpoint = baseUrl + deleteBookQuery + bookIdParam;
-	fetch(endpoint).then(response => response.json()).then(json => {
+	fetch(endpoint)
+	.then(response => response.json())
+	.then(json => {
 		if (json.status === 'success') {
 			console.log('Successfully deleted book');
 			bookIdField.value = '';
@@ -129,7 +137,9 @@ function requestNewAPIKey() {
 	const requestKeyQuery = 'requestKey';
 	const url = 'https://www.forverkliga.se/JavaScript/api/crud.php?';
 	const endpoint = url + requestKeyQuery;
-	fetch(endpoint).then(response => response.json()).then(json => {
+	fetch(endpoint)
+	.then(response => response.json())
+	.then(json => {
 		key = json.key;
 		console.log(key);
 		baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?key=' + key;
