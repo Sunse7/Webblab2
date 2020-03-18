@@ -13,7 +13,6 @@ let addBookMessage;
 let modifyBookMessage;
 let deleteBookMessage;
 let viewBookMessage;
-let title;
 
 window.addEventListener('load', ()=> {
 	bookNameField = document.getElementById('book-name');
