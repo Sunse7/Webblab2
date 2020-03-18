@@ -59,7 +59,6 @@ function viewBookList(tryTimes = 10) {
 	}
 	const viewBookQuery = '&op=select';
 	const endpoint = baseUrl + viewBookQuery;
-	//let result = title.fontcolor('green'); //To change the color on the title
 	let idColor = 'ID'.fontcolor('#9999ff');
 	let titleColor = 'Title'.fontcolor('#9999ff');
 	let authorColor = 'Author'.fontcolor('#9999ff');
@@ -71,9 +70,8 @@ function viewBookList(tryTimes = 10) {
 			});
 			bookList.innerHTML = '';
 			for (let i = 0; i < bookArray.length; i++) {
-				title = bookArray[i].title;
 				let makeList = document.createElement('li');
-				makeList.innerHTML = `${idColor}: ${bookArray[i].id} ${titleColor}: ${title} ${authorColor}: ${bookArray[i].author}`;	
+				makeList.innerHTML = `${idColor}: ${bookArray[i].id} ${titleColor}: ${bookArray[i].title} ${authorColor}: ${bookArray[i].author}`;	
 				bookList.appendChild(makeList);
 			}
 			viewBookMessage.innerHTML = `Successfully fetched and updated books after ${10 - tryTimes + 1} tries`;
