@@ -1,5 +1,5 @@
-let key = 'key=zbYuQ';
-const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?' + key;
+let key = 'zbYuQ';
+let baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?key=' + key;
 let bookNameField;
 let bookAuthorField;
 let bookList; 
@@ -127,15 +127,15 @@ function deleteBook(tryTimes = 10) {
 }
 
 function requestNewAPIKey() {
-	let newKey;
 	const requestKeyQuery = 'requestKey';
 	const url = 'https://www.forverkliga.se/JavaScript/api/crud.php?';
 	const endpoint = url + requestKeyQuery;
 	fetch(endpoint).then(response => response.json()).then(json => {
-		newKey = json.key;
-		console.log(newKey);
+		key = json.key;
+		console.log(key);
+		baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php?key=' + key;
 		let makeAPIKeyList = document.createElement('li');
-		makeAPIKeyList.innerHTML = newKey;
+		makeAPIKeyList.innerHTML = key;
 		newAPIKeyList.appendChild(makeAPIKeyList);
 	});
 }
